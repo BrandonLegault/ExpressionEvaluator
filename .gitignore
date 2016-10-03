@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/BrandoSoft.CSharp.ExpressionEvaluator/bin/Debug
+/BrandoSoft.CSharp.ExpressionEvaluator/obj/Debug
+/packages/Mono.CSharp.4.0.0.143
+/packages/NUnit.3.4.1
+*.user
