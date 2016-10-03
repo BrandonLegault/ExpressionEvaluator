@@ -1,4 +1,4 @@
-﻿namespace BrandoSoft.CSharp
+﻿namespace BrandoSoft.CSharp.Evaluator
 {
     using System.Collections.Generic;
 

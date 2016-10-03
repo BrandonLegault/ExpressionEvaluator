@@ -7,8 +7,8 @@
     <ProjectGuid>{24C32166-A218-40C9-AE43-3D3A43A75BBF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrandoSoft.CSharp</RootNamespace>
-    <AssemblyName>BrandoSoft.CSharp.ExpressionEvaluator</AssemblyName>
+    <RootNamespace>BrandoSoft.CSharp.Evaluator</RootNamespace>
+    <AssemblyName>BrandoSoft.CSharp.Evaluator</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

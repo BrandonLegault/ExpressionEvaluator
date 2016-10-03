@@ -1,4 +1,4 @@
-﻿namespace BrandoSoft.CSharp
+﻿namespace BrandoSoft.CSharp.Evaluator
 {
     using System;
     using System.Collections.Generic;
@@ -12,8 +12,10 @@
     /// <summary>
     /// Provides an API into a runtime C# compiler and evaluator.
     /// </summary>
-    public class ExpressionEvaluator
-        : IExpressionEvaluator, IDisposable
+    public class RuntimeEvaluator
+        :
+        
+        IExpressionEvaluator, IDisposable
     {
         #region Fields
 
@@ -49,7 +51,7 @@
         /// <summary>
         /// Construct a default expression evaluator
         /// </summary>
-        public ExpressionEvaluator()
+        public RuntimeEvaluator()
         { 
             this._importedNamespaces = new List< string >();
 

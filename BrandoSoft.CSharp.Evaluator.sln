@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrandoSoft.CSharp.ExpressionEvaluator", "BrandoSoft.CSharp.ExpressionEvaluator\BrandoSoft.CSharp.ExpressionEvaluator.csproj", "{24C32166-A218-40C9-AE43-3D3A43A75BBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrandoSoft.CSharp.Evaluator", "BrandoSoft.CSharp.ExpressionEvaluator\BrandoSoft.CSharp.Evaluator.csproj", "{24C32166-A218-40C9-AE43-3D3A43A75BBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
