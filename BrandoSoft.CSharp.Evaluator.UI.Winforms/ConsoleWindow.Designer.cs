@@ -1,4 +1,4 @@
-﻿namespace BrandoSoft.Evaluator.UI.Winforms
+﻿namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
 {
     partial class ConsoleWindow
     {

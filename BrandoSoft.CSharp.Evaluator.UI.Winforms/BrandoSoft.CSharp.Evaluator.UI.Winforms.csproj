@@ -7,8 +7,8 @@
     <ProjectGuid>{06B4973A-B12D-42F1-BB57-26FC398D5DEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrandoSoft.Evaluator.UI.Winforms</RootNamespace>
-    <AssemblyName>BrandoSoft.Evaluator.UI.Winforms</AssemblyName>
+    <RootNamespace>BrandoSoft.CSharp.Evaluator.UI.Winforms</RootNamespace>
+    <AssemblyName>BrandoSoft.CSharp.Evaluator.UI.Winforms</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -53,6 +53,12 @@
     <EmbeddedResource Include="ConsoleWindow.resx">
       <DependentUpon>ConsoleWindow.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BrandoSoft.CSharp.Evaluator\BrandoSoft.CSharp.Evaluator.csproj">
+      <Project>{24c32166-a218-40c9-ae43-3d3a43a75bbf}</Project>
+      <Name>BrandoSoft.CSharp.Evaluator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

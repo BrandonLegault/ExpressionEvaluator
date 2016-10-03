@@ -1,4 +1,4 @@
-﻿namespace BrandoSoft.Evaluator.UI.Winforms
+﻿namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +21,11 @@
         /// Keeps index so the user can press up or down to retrieve past commands
         /// </summary>
         private int _debugCommandIndex;
+
+        /// <summary>
+        /// The object that will perform our console queries.
+        /// </summary>
+        private readonly IExpressionEvaluator _expressionEvaluator;
         #endregion
 
 
