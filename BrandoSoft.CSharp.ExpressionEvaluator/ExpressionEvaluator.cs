@@ -13,9 +13,7 @@
     /// Provides an API into a runtime C# compiler and evaluator.
     /// </summary>
     public class RuntimeEvaluator
-        :
-        
-        IExpressionEvaluator, IDisposable
+        : IExpressionEvaluator, IDisposable
     {
         #region Fields
 
