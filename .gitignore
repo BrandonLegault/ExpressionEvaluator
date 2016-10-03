@@ -8,3 +8,7 @@
 /packages/Mono.CSharp.4.0.0.143
 /packages/NUnit.3.4.1
 *.user
+/BrandoSoft.CSharp.ExpressionEvaluator.UI.Winforms/obj/Debug
+/BrandoSoft.CSharp.Evaluator/bin/Debug
+/BrandoSoft.CSharp.Evaluator/obj/Debug
+/BrandoSoft.CSharp.Evaluator.UI.Winforms/obj/Debug
