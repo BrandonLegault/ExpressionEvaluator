@@ -13,3 +13,6 @@
 /BrandoSoft.CSharp.Evaluator/obj/Debug
 /BrandoSoft.CSharp.Evaluator.UI.Winforms/obj/Debug
 /BrandoSoft.CSharp.Evaluator.UI.Winforms/bin/Debug
+/BrandoSoft.CSharp.Evaluator.Test/bin/Debug
+/BrandoSoft.CSharp.Evaluator.Test/obj/Debug
+/packages/NUnit.3.5.0
