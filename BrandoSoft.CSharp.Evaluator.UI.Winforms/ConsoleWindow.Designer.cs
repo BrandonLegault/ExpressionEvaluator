@@ -47,6 +47,7 @@
             this.txtConsoleIn.Name = "txtConsoleIn";
             this.txtConsoleIn.Size = new System.Drawing.Size(433, 20);
             this.txtConsoleIn.TabIndex = 3;
+            this.txtConsoleIn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtConsoleIn_KeyUp);
             // 
             // txtConsoleOut
             // 

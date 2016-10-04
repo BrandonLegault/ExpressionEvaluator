@@ -22,12 +22,7 @@
         /// Keeps index so the user can press up or down to retrieve past commands
         /// </summary>
         private int _debugCommandIndex;
-
-        /// <summary>
-        /// The object that will perform our console queries.
-        /// </summary>
-        private readonly IExpressionEvaluator _expressionEvaluator;
-
+        
         /// <summary>
         /// A key combination of the keypress required to submit the text entry.
         /// </summary>
@@ -120,6 +115,12 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets the IExpressionEvaluator used to evaluate expressions on this console window.
+        /// </summary>
+        [Browsable(false)]
+        public IExpressionEvaluator ExpressionEvaluator { get; set; }
+
         #endregion
 
 
@@ -131,12 +132,10 @@
 
             this._acceptKeys = Keys.Enter;
             this._previousDebugCommands = new List<string>();
-
+            
             this.MultilineInput = true;
         }
-
-
-
+        
         #endregion
         
 
@@ -148,13 +147,18 @@
         private void SubmitConsoleCommand()
         {
 
+            if ( this.ExpressionEvaluator == null )
+            {
+                throw new Exception("No Expression Evaluator has been assigned to the console window. The ExpressionEvaluator property must be set.");
+            }
+
             //Just return the textbox doesn't have input focus or there's nothing in the textbox.
             if (!this.txtConsoleIn.Focused || string.IsNullOrEmpty(this.txtConsoleIn.Text)) return;
 
             this._previousDebugCommands.Add(this.txtConsoleIn.Text);
             this._debugCommandIndex = this._previousDebugCommands.Count;
 
-            var output = this._expressionEvaluator.Evaluate(this.txtConsoleIn.Text);
+            var output = this.ExpressionEvaluator.Evaluate(this.txtConsoleIn.Text);
 
             this.txtConsoleOut.AppendText($"\r\n{this.txtConsoleIn.Text}\r\n\t{output}");
             this.txtConsoleIn.Clear();
@@ -179,14 +183,13 @@
                     : string.Empty;
                 this.txtConsoleIn.Select(this.txtConsoleIn.TextLength + 1, 0);
             }
-            else if (e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == this._acceptKeys)
             {
                 //This function checks whether or not we can submit the command before submitting
                 this.SubmitConsoleCommand();
             }
         }
-
-
+        
         private void ResizeSplit(int value)
         {
             int splitterTop = value;
