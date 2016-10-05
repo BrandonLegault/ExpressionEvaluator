@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>BrandoSoft.CSharp.Evaluator</id>
+    <version>1.0.0</version>
+    <title>Runtime C# Expression Evaluator</title>
+    <authors>Brandon Legault</authors>
+    <owners>Brandon Legault</owners>
+    <description>
+      An object and interface with an API for evaluating C# expressions, assignments etc... during runtime.
+    </description>
+    <releaseNotes>
+      Initial Release
+    </releaseNotes>
+    <summary>
+      A runtime C# expression evaluator
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/BrandonLegault/ExpressionEvaluator</projectUrl>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <copyright>Copyright 2016 Brandon Legault</copyright>
+    <dependencies>
+      <dependency id="Mono.CSharp" version="4.0.0.143"/>
+    </dependencies>
+    <references></references>
+    <tags>
+      expressionparser expression parser runtime evaluator console
+    </tags>
+  </metadata>
+  <files>
+  </files>
+</package>

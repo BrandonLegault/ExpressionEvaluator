@@ -31,7 +31,7 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
     /// <summary>
     /// Exposes the Expression Evaluator as a console window.
     /// </summary>
-    public partial class ConsoleWindow
+    public sealed partial class ConsoleWindow
         : UserControl
     {
         #region Variables
@@ -167,7 +167,7 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         /// <summary>
         /// Runs the evaluator's evaluate method with the text in the input box.
         /// </summary>
-        private void SubmitConsoleCommand()
+        public void SubmitCurrentCommand()
         {
 
             if ( this.ExpressionEvaluator == null )
@@ -209,7 +209,7 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
             else if (e.KeyCode == this._acceptKeys)
             {
                 //This function checks whether or not we can submit the command before submitting
-                this.SubmitConsoleCommand();
+                this.SubmitCurrentCommand();
             }
         }
         

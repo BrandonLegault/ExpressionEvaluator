@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>BrandoSoft.CSharp.Evaluator.UI.WinForms</id>
+    <version>1.0.0</version>
+    <title>Runtime C# Expression Evaluator WinForms Console Window</title>
+    <authors>Brandon Legault</authors>
+    <owners>Brandon Legault</owners>
+    <description>
+      A console window for WinForms that wraps the Runtime Expression evaluator
+    </description>
+    <releaseNotes>
+      Initial Release
+    </releaseNotes>
+    <summary>
+      A runtime C# expression evaluator console window
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/BrandonLegault/ExpressionEvaluator</projectUrl>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <copyright>Copyright 2016 Brandon Legault</copyright>
+    <dependencies>
+      
+    </dependencies>
+    <references></references>
+    <tags>
+      expressionparser expression parser runtime evaluator console
+    </tags>
+  </metadata>
+  <files>
+  </files>
+</package>
+

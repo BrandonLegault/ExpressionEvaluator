@@ -35,7 +35,7 @@ namespace BrandoSoft.CSharp.Evaluator
     /// <summary>
     /// Provides an API into a runtime C# compiler and evaluator.
     /// </summary>
-    public class RuntimeEvaluator
+    public sealed class RuntimeEvaluator
         : IExpressionEvaluator, IDisposable
     {
         #region Fields
