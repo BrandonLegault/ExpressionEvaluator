@@ -19,7 +19,7 @@
     <projectUrl>https://github.com/BrandonLegault/ExpressionEvaluator</projectUrl>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <licenseUrl>https://github.com/BrandonLegault/ExpressionEvaluator/blob/master/LICENSE</licenseUrl>
     <copyright>Copyright 2016 Brandon Legault</copyright>
     <dependencies>
       <dependency id="Mono.CSharp" version="4.0.0.143"/>
