@@ -21,6 +21,9 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE. 
  */
+
+using System.Drawing;
+
 namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
 {
     using System;
@@ -195,46 +198,20 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         }
 
         /// <summary>
-        /// Sets input focus to the control.
+        /// Sets input control to the input textbox
         /// </summary>
-        private new void Focus()
+        public new bool Focus()
         {
-            this.txtConsoleIn.Focus();
+            return this.txtConsoleIn.Focus();
         }
 
-        #endregion
-        #region Control Events
-
-        private void txtConsoleIn_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Up)
-            {
-                this._debugCommandIndex = Math.Max(0, this._debugCommandIndex - 1);
-                this.txtConsoleIn.Text = this._previousDebugCommands[this._debugCommandIndex];
-                this.txtConsoleIn.Select(this.txtConsoleIn.TextLength + 1, 0);
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                this._debugCommandIndex = Math.Min(this._previousDebugCommands.Count, this._debugCommandIndex + 1);
-                this.txtConsoleIn.Text = this._debugCommandIndex < this._previousDebugCommands.Count
-                    ? this._previousDebugCommands[this._debugCommandIndex]
-                    : string.Empty;
-                this.txtConsoleIn.Select(this.txtConsoleIn.TextLength + 1, 0);
-            }
-            else if (e.KeyCode == this._acceptKeys)
-            {
-                //This function checks whether or not we can submit the command before submitting
-                this.SubmitCurrentCommand();
-            }
-        }
-        
         private void ResizeSplit(int value)
         {
             int splitterTop = value;
 
             if (value < 20) splitterTop = 20;
 
-            if ( this.Height - value - this.lblSplitter.Height < 20 )
+            if (this.Height - value - this.lblSplitter.Height < 20)
             {
                 splitterTop = this.Height - 20 - this.lblSplitter.Height;
             }
@@ -252,20 +229,66 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
             this.txtConsoleOut.Height = outHeight;
         }
 
+        private Point TranslateChildCoordinateToParent(Control child, Point childPoint)
+        {
+            var screenCoord = child.PointToScreen(childPoint);
+            return this.PointToClient(screenCoord);
+
+        }
+
+        private MouseEventArgs TranslateChildMouseEventToParent(object sender, MouseEventArgs e)
+        {
+            var translatedChild = this.TranslateChildCoordinateToParent((Control)sender, e.Location);
+            return new MouseEventArgs(e.Button, e.Clicks, translatedChild.X, translatedChild.Y, e.Delta);
+        }
+
+
+
+        #endregion
+        #region Control Events
+
+        private void txtConsoleIn_KeyUp(object sender, KeyEventArgs e)
+        {
+            if ( e.KeyCode == Keys.Up )
+            {
+                this._debugCommandIndex = Math.Max(0, this._debugCommandIndex - 1);
+                this.txtConsoleIn.Text = this._previousDebugCommands[this._debugCommandIndex];
+                this.txtConsoleIn.Select(this.txtConsoleIn.TextLength + 1, 0);
+            }
+            else if ( e.KeyCode == Keys.Down )
+            {
+                this._debugCommandIndex = Math.Min(this._previousDebugCommands.Count, this._debugCommandIndex + 1);
+                this.txtConsoleIn.Text = this._debugCommandIndex < this._previousDebugCommands.Count
+                    ? this._previousDebugCommands[this._debugCommandIndex]
+                    : string.Empty;
+                this.txtConsoleIn.Select(this.txtConsoleIn.TextLength + 1, 0);
+            }
+            else if ( e.KeyCode == this._acceptKeys )
+            {
+                //This function checks whether or not we can submit the command before submitting
+                this.SubmitCurrentCommand();
+            }
+        }
+
         private void lblSplitter_MouseDown(object sender, MouseEventArgs e)
         {
             this._isMouseDown = true;
+            e = this.TranslateChildMouseEventToParent(sender, e);
+            this.OnMouseDown(e);
         }
 
         private void lblSplitter_MouseUp(object sender, MouseEventArgs e)
         {
             this._isMouseDown = false;
+            e = this.TranslateChildMouseEventToParent(sender, e);
+            this.OnMouseUp(e);
         }
 
         private void lblSplitter_MouseEnter(object sender, EventArgs e)
         {
             this._mouseOnSplitter = true;
             this.Cursor = Cursors.HSplit;
+            this.OnMouseEnter(e);
 
         }
 
@@ -273,17 +296,55 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         {
             this.Cursor = Cursors.Default;
             this._mouseOnSplitter = false;
+            this.OnMouseLeave(e);
         }
         
         private void lblSplitter_MouseMove(object sender, MouseEventArgs e)
         {
-            
             if (this._mouseOnSplitter && this._isMouseDown)
             {
-                this.ResizeSplit(this.SplitterDistance + e.Y); 
+                this.ResizeSplit(this.SplitterDistance + e.Y);
             }
+
+            e = this.TranslateChildMouseEventToParent(sender, e);
+            this.OnMouseMove(e);
+        }
+
+
+        private void textboxes_MouseDown(object sender, MouseEventArgs e)
+        {
+            e = this.TranslateChildMouseEventToParent(sender, e);
+            this.OnMouseDown(e);
+        }
+
+        private void textboxes_MouseUp(object sender, MouseEventArgs e)
+        {
+            e = this.TranslateChildMouseEventToParent(sender, e);
+            this.OnMouseUp(e);
+        }
+
+        private void textboxes_MouseEnter(object sender, EventArgs e)
+        {
+            this.OnMouseEnter(e);
+        }
+
+        private void textboxes_MouseLeave(object sender, EventArgs e)
+        {
+            this.OnMouseLeave(e);
+        }
+
+        private void textboxes_MouseMove(object sender, MouseEventArgs e)
+        {
+            e = this.TranslateChildMouseEventToParent(sender, e);
+            this.OnMouseMove(e);
+        }
+
+        private void textboxes_MouseHover(object sender, EventArgs e)
+        {
+            this.OnMouseHover(e);
         }
 
         #endregion
+
     }
 }

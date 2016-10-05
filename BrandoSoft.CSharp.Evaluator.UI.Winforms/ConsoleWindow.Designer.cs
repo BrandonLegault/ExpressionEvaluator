@@ -48,6 +48,12 @@
             this.txtConsoleIn.Size = new System.Drawing.Size(433, 20);
             this.txtConsoleIn.TabIndex = 3;
             this.txtConsoleIn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtConsoleIn_KeyUp);
+            this.txtConsoleIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textboxes_MouseDown);
+            this.txtConsoleIn.MouseEnter += new System.EventHandler(this.textboxes_MouseEnter);
+            this.txtConsoleIn.MouseLeave += new System.EventHandler(this.textboxes_MouseLeave);
+            this.txtConsoleIn.MouseHover += new System.EventHandler(this.textboxes_MouseHover);
+            this.txtConsoleIn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.textboxes_MouseMove);
+            this.txtConsoleIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textboxes_MouseUp);
             // 
             // txtConsoleOut
             // 
@@ -65,6 +71,12 @@
             this.txtConsoleOut.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtConsoleOut.Size = new System.Drawing.Size(433, 96);
             this.txtConsoleOut.TabIndex = 2;
+            this.txtConsoleOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textboxes_MouseDown);
+            this.txtConsoleOut.MouseEnter += new System.EventHandler(this.textboxes_MouseEnter);
+            this.txtConsoleOut.MouseLeave += new System.EventHandler(this.textboxes_MouseLeave);
+            this.txtConsoleOut.MouseHover += new System.EventHandler(this.textboxes_MouseHover);
+            this.txtConsoleOut.MouseMove += new System.Windows.Forms.MouseEventHandler(this.textboxes_MouseMove);
+            this.txtConsoleOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textboxes_MouseUp);
             // 
             // lblSplitter
             // 
@@ -94,11 +106,6 @@
             this.MinimumSize = new System.Drawing.Size(20, 46);
             this.Name = "ConsoleWindow";
             this.Size = new System.Drawing.Size(433, 118);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblSplitter_MouseDown);
-            this.MouseEnter += new System.EventHandler(this.lblSplitter_MouseEnter);
-            this.MouseLeave += new System.EventHandler(this.lblSplitter_MouseLeave);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.lblSplitter_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lblSplitter_MouseUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
