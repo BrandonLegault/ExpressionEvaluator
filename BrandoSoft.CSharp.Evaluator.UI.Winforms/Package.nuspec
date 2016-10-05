@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>BrandoSoft.CSharp.Evaluator.UI.WinForms</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Runtime C# Expression Evaluator WinForms Console Window</title>
     <authors>Brandon Legault</authors>
     <owners>Brandon Legault</owners>
@@ -10,7 +10,7 @@
       A console window for WinForms that wraps the Runtime Expression evaluator
     </description>
     <releaseNotes>
-      Initial Release
+      Add control focus logic.
     </releaseNotes>
     <summary>
       A runtime C# expression evaluator console window

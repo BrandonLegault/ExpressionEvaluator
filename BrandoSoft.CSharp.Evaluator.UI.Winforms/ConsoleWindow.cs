@@ -144,6 +144,12 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         [Browsable(false)]
         public IExpressionEvaluator ExpressionEvaluator { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether the control has input focus
+        /// </summary>
+        [Browsable(false)]
+        public override bool Focused => this.txtConsoleIn.Focused || this.txtConsoleOut.Focused;
+
         #endregion
 
 
@@ -187,6 +193,15 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
             this.txtConsoleIn.Clear();
 
         }
+
+        /// <summary>
+        /// Sets input focus to the control.
+        /// </summary>
+        private new void Focus()
+        {
+            this.txtConsoleIn.Focus();
+        }
+
         #endregion
         #region Control Events
 
