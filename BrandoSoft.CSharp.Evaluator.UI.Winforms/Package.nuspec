@@ -11,6 +11,7 @@
     </description>
     <releaseNotes>
       Add control focus logic.
+      Fix control mouse events
     </releaseNotes>
     <summary>
       A runtime C# expression evaluator console window
