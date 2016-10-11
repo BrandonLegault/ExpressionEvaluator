@@ -164,7 +164,7 @@ namespace BrandoSoft.CSharp.Evaluator
             {
                 object result;
                 bool results;
-
+                
                 // Make the evaluator create an internal variable with the instance name passed, set to null.
                 var constructor = $"{instance.GetType().FullName} {instanceName} = null;";
                 this._evaluator.Evaluate(constructor, out result, out results);
@@ -236,6 +236,14 @@ namespace BrandoSoft.CSharp.Evaluator
                 this._errors.Clear();
             }
             return "";
+        }
+
+        public IEnumerable< string > GetCompletions(string expression)
+        {
+            string prefix;
+            var completions = this._evaluator.GetCompletions(expression, out prefix);
+            
+            return completions?.Select(c => $"{prefix}{c}") ?? Enumerable.Empty<string>();
         }
 
         #endregion

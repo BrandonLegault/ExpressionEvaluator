@@ -47,7 +47,7 @@
             this.txtConsoleIn.Name = "txtConsoleIn";
             this.txtConsoleIn.Size = new System.Drawing.Size(433, 20);
             this.txtConsoleIn.TabIndex = 3;
-            this.txtConsoleIn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtConsoleIn_KeyUp);
+            this.txtConsoleIn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextEntered);
             this.txtConsoleIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textboxes_MouseDown);
             this.txtConsoleIn.MouseEnter += new System.EventHandler(this.textboxes_MouseEnter);
             this.txtConsoleIn.MouseLeave += new System.EventHandler(this.textboxes_MouseLeave);

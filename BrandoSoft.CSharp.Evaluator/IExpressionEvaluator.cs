@@ -71,5 +71,7 @@ namespace BrandoSoft.CSharp.Evaluator
         /// <param name="expression"></param>
         /// <returns></returns>
         string Evaluate(string expression);
+
+        IEnumerable< string > GetCompletions(string expression);
     }
 }

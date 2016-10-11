@@ -23,6 +23,7 @@
  */
 
 using System.Drawing;
+using System.Linq;
 
 namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
 {
@@ -37,6 +38,15 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
     public sealed partial class ConsoleWindow
         : UserControl
     {
+        #region Constants
+
+        private const Keys PREVIOUS_COMMAND         = Keys.Control | Keys.Up;
+        private const Keys NEXT_COMMAND             = Keys.Control | Keys.Down;
+        private const Keys NAVIGATE_COMPLETION_UP   = Keys.Up;
+        private const Keys NAVIGATE_COMPLETION_DOWN = Keys.Down;
+
+        #endregion
+
         #region Variables
 
         /// <summary>
@@ -63,6 +73,11 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         /// If we've clicked the mouse down.
         /// </summary>
         private bool _isMouseDown;
+
+        /// <summary>
+        /// Our completions popup as the user types.
+        /// </summary>
+        private readonly CompletionsWindow _completions;
 
         #endregion
         #region Properties
@@ -133,9 +148,12 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
             get { return this._acceptKeys; }
             set
             {
-                if (value.HasFlag(Keys.Up) || value.HasFlag(Keys.Down))
+                if (value == NEXT_COMMAND 
+                 || value == PREVIOUS_COMMAND
+                 || value == NAVIGATE_COMPLETION_UP
+                 || value == NAVIGATE_COMPLETION_DOWN)
                 {
-                    throw new Exception("Up and down keys are reserved by the console.");
+                    throw new Exception("Ctrl + Up, Ctrl + down, Up and Down keys are reserved by the console.");
                 }
                 this._acceptKeys = value;
             }
@@ -160,16 +178,23 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         
         public ConsoleWindow()
         {
+            this._completions = new CompletionsWindow();
+            this.Controls.Add(this._completions);
             this.InitializeComponent();
+            this._completions.Hide();
+
+            this._completions.ItemClicked += this.CompletionClicked;
 
             this._acceptKeys = Keys.Enter;
             this._previousDebugCommands = new List<string>();
-            
+
+
             this.MultilineInput = true;
+            
         }
-        
+
         #endregion
-        
+
 
         #region Methods
 
@@ -242,26 +267,85 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
             return new MouseEventArgs(e.Button, e.Clicks, translatedChild.X, translatedChild.Y, e.Delta);
         }
 
+        private void CompletionClicked(CompletionsWindow sender, string clicked)
+        {
+            string finalOutput = $"{clicked}";
+            var currentText = this.txtConsoleIn.Text;
+            
+            var dotIndex = this.txtConsoleIn.Text.LastIndexOf(".", StringComparison.Ordinal);
+            
+            if ( dotIndex > -1 )
+                finalOutput = $"{currentText.Substring(0, dotIndex)}.{clicked}";
 
+            this.txtConsoleIn.Text = finalOutput;
+            this.txtConsoleIn.Select(this.txtConsoleIn.TextLength, 0);
 
+            this._completions.Hide();
+        }
+
+        private void NavigatePreviousCommand()
+        {
+            this._debugCommandIndex = Math.Max(0, this._debugCommandIndex - 1);
+            this.txtConsoleIn.Text = this._previousDebugCommands[this._debugCommandIndex];
+            this.txtConsoleIn.Select(this.txtConsoleIn.TextLength, 0);
+        }
+
+        private void NavigateNextCommand()
+        {
+            this._debugCommandIndex = Math.Min(this._previousDebugCommands.Count, this._debugCommandIndex + 1);
+            this.txtConsoleIn.Text = this._debugCommandIndex < this._previousDebugCommands.Count
+                ? this._previousDebugCommands[this._debugCommandIndex]
+                : string.Empty;
+            this.txtConsoleIn.Select(this.txtConsoleIn.TextLength, 0);
+        }
+
+        private void ShowCompletionsWindow(string textIn)
+        {
+            //Grab the completions from the evaluator
+            var completions = this.ExpressionEvaluator.GetCompletions(textIn).ToList();
+
+            //Clear any old completion remnants
+            this._completions.Clear();
+
+            //Make sure that we don't just contain a single completion that is the text we've already entered.
+            if (completions.Any(c => !this.txtConsoleIn.Text.EndsWith(c)))
+            {
+                foreach (var completion in completions)
+                {
+                    this._completions.Add(completion);
+                }
+
+                //Display the completions window
+                this._completions.Location = new Point(this.txtConsoleIn.Location.X + 5,
+                    this.txtConsoleIn.Location.Y - this._completions.Height);
+
+                this._completions.Show();
+            }
+            else
+            {
+                //Don't have anything, hide the window.
+                this._completions.Hide();
+            }
+        }
         #endregion
         #region Control Events
 
-        private void txtConsoleIn_KeyUp(object sender, KeyEventArgs e)
+
+        private void TextEntered(object sender, KeyEventArgs e)
         {
-            if ( e.KeyCode == Keys.Up )
+            //Make sure stuff is actually in the box
+            if (!string.IsNullOrEmpty(this.txtConsoleIn.Text))
             {
-                this._debugCommandIndex = Math.Max(0, this._debugCommandIndex - 1);
-                this.txtConsoleIn.Text = this._previousDebugCommands[this._debugCommandIndex];
-                this.txtConsoleIn.Select(this.txtConsoleIn.TextLength + 1, 0);
+                this.ShowCompletionsWindow(this.txtConsoleIn.Text);
             }
-            else if ( e.KeyCode == Keys.Down )
+
+            if ( e.KeyCode == PREVIOUS_COMMAND )
             {
-                this._debugCommandIndex = Math.Min(this._previousDebugCommands.Count, this._debugCommandIndex + 1);
-                this.txtConsoleIn.Text = this._debugCommandIndex < this._previousDebugCommands.Count
-                    ? this._previousDebugCommands[this._debugCommandIndex]
-                    : string.Empty;
-                this.txtConsoleIn.Select(this.txtConsoleIn.TextLength + 1, 0);
+                this.NavigatePreviousCommand();
+            }
+            else if ( e.KeyCode == NEXT_COMMAND )
+            {
+                this.NavigateNextCommand();
             }
             else if ( e.KeyCode == this._acceptKeys )
             {
@@ -309,6 +393,7 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
             e = this.TranslateChildMouseEventToParent(sender, e);
             this.OnMouseMove(e);
         }
+
 
 
         private void textboxes_MouseDown(object sender, MouseEventArgs e)
