@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>BrandoSoft.CSharp.Evaluator.UI.WinForms</id>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <title>Runtime C# Expression Evaluator WinForms Console Window</title>
     <authors>Brandon Legault</authors>
     <owners>Brandon Legault</owners>
@@ -10,8 +10,7 @@
       A console window for WinForms that wraps the Runtime Expression evaluator
     </description>
     <releaseNotes>
-      Add control focus logic.
-      Fix control mouse events
+      Added a completions window
     </releaseNotes>
     <summary>
       A runtime C# expression evaluator console window
@@ -23,7 +22,7 @@
     <licenseUrl>https://github.com/BrandonLegault/ExpressionEvaluator/blob/master/LICENSE</licenseUrl>
     <copyright>Copyright 2016 Brandon Legault</copyright>
     <dependencies>
-      
+      <dependency id="BrandoSoft.CSharp.Evaluator" version="1.1.0" />
     </dependencies>
     <references></references>
     <tags>
