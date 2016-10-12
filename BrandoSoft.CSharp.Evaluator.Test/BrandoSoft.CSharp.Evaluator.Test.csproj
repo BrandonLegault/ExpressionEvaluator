@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BrandoSoft.CSharp.Evaluator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BrandoSoft.CSharp.Evaluator.1.0.0\lib\net46\BrandoSoft.CSharp.Evaluator.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Mono.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.CSharp.4.0.0.143\lib\4.5\Mono.CSharp.dll</HintPath>
       <Private>True</Private>
@@ -57,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BrandoSoft.CSharp.Evaluator\BrandoSoft.CSharp.Evaluator.csproj">
+      <Project>{24c32166-a218-40c9-ae43-3d3a43a75bbf}</Project>
+      <Name>BrandoSoft.CSharp.Evaluator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
