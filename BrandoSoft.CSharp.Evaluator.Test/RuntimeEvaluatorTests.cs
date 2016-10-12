@@ -21,6 +21,10 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE. 
  */
+
+using System;
+using System.Text.RegularExpressions;
+
 namespace BrandoSoft.CSharp.Evaluator.Test
 {
     using System.Linq;
@@ -36,11 +40,13 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         [SetUp]
         public void Setup()
         {
+
+
             this._evaluator = new RuntimeEvaluator();
         }
 
         [Test]
-        public void RunetimeEvaluator_CanAddAssemblies()
+        public void RuntimeEvaluator_CanAddAssemblies()
         {
             var thisAssemblyName = Assembly.GetExecutingAssembly().FullName;
 
@@ -54,7 +60,7 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         [TestCase("using System;", "using System.Linq;")]
         [TestCase("using BrandoSoft.CSharp.Evaluator;", "using System.Linq;")]
         [TestCase("using BrandoSoft.CSharp.Evaluator;", "using System.Collections.Generic;")]
-        public void RunetimeEvaluator_CanAddNamespaces(params string[] namespaces)
+        public void RuntimeEvaluator_CanAddNamespaces(params string[] namespaces)
         {
 
             this._evaluator.ImportNamespaces(namespaces);
@@ -75,7 +81,7 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         [TestCase("using BrandoSoft.CSharp.Evaluator;", "using System.Collections.Generic;")]
         [TestCase("using System;", "using System.Linq;", "using System.Collections;",
             "using System.Collections.Generic;")]
-        public void RunetimeEvaluator_CanAddNamespaces_SingleString(params string[] namespaces)
+        public void RuntimeEvaluator_CanAddNamespaces_SingleString(params string[] namespaces)
         {
 
             this._evaluator.ImportNamespaces(new[] {string.Join(" ", namespaces)});
@@ -92,7 +98,7 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         }
 
         [Test]
-        public void RunetimeEvaluator_CanCreateObjectInstance()
+        public void RuntimeEvaluator_CanCreateObjectInstance()
         {
             this._evaluator.AddAssemblyReference(Assembly.GetExecutingAssembly().FullName);
 
@@ -103,7 +109,7 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         }
 
         [Test]
-        public void RunetimeEvaluator_CanAccessObjectInstance()
+        public void RuntimeEvaluator_CanAccessObjectInstance()
         {
             this._evaluator.AddAssemblyReference(Assembly.GetExecutingAssembly().FullName);
 
@@ -115,7 +121,7 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         }
 
         [Test]
-        public void RunetimeEvaluator_CanChangeObjectInstance_PropertiesAndFields()
+        public void RuntimeEvaluator_CanChangeObjectInstance_PropertiesAndFields()
         {
             this._evaluator.AddAssemblyReference(Assembly.GetExecutingAssembly().FullName);
 
@@ -143,7 +149,7 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         }
 
         [Test]
-        public void RunetimeEvaluator_CanCallInstanceMethods()
+        public void RuntimeEvaluator_CanCallInstanceMethods()
         {
             this._evaluator.AddAssemblyReference(Assembly.GetExecutingAssembly().FullName);
 
@@ -154,6 +160,19 @@ namespace BrandoSoft.CSharp.Evaluator.Test
             Assert.That(this._evaluator.Evaluate("dummy.DummyStringMethod(\"Forty Two\")"), Is.EqualTo("Forty Two"));
             Assert.That(this._evaluator.Evaluate("dummy.DummyIntMethod(42)"), Is.EqualTo("42"));
         }
+
+        [Test]
+        public void RuntimeEvaluator_CanAccessPrivateFields()
+        {
+            Assert.Pass("This test does not pass yet. This pass is only a placeholder.");
+            this._evaluator.AddAssemblyReference(Assembly.GetExecutingAssembly().FullName);
+
+            var dummy = new DummyTestClass();
+
+            this._evaluator.AddInstancedObject(dummy, "dummy");
+
+            Assert.That(this._evaluator.Evaluate("dummy._privateIntField"), Is.EqualTo("42"));
+        }
     }
 
 
@@ -163,7 +182,13 @@ namespace BrandoSoft.CSharp.Evaluator.Test
         public int DummyIntProperty { get; set; }
         public string DummyStringField;
         public int DummyIntField;
-        public DummyTestClass() { }
+
+        private int _privateIntField;
+
+        public DummyTestClass()
+        {
+            this._privateIntField = 42;
+        }
 
         public string DummyStringMethod(string toReturn)
         {
