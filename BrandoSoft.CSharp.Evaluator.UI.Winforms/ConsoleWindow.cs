@@ -171,6 +171,13 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         [Browsable(false)]
         public override bool Focused => this.txtConsoleIn.Focused || this.txtConsoleOut.Focused;
 
+
+        /// <summary>
+        /// Whether or not the console window will use automatic completions during typing.
+        /// </summary>
+        [Browsable(true)]
+        [Description("Whether or not the console window will use automatic completions during typing.")]
+        public bool UseCompletions { get; set; }
         #endregion
 
 
@@ -334,7 +341,7 @@ namespace BrandoSoft.CSharp.Evaluator.UI.Winforms
         private void TextEntered(object sender, KeyEventArgs e)
         {
             //Make sure stuff is actually in the box
-            if (!string.IsNullOrEmpty(this.txtConsoleIn.Text))
+            if (this.UseCompletions && !string.IsNullOrEmpty(this.txtConsoleIn.Text))
             {
                 this.ShowCompletionsWindow(this.txtConsoleIn.Text);
             }
